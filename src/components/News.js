@@ -55,14 +55,17 @@ export class News extends Component {
 
 
     async componentDidMount() {
+        this.props.setProgress(10)
         let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=dcfa7d83a4474334b61c00616d5f6d98&pagesize=30`
         let data = await fetch(url)
+        this.props.setProgress(30)
         let parsedData = await data.json()
         this.setState({
             articles: parsedData.articles,
           
      
         })
+        this.props.setProgress(100)
     }
     
 
@@ -84,7 +87,7 @@ export class News extends Component {
                 <li id="line"></li>
                 <div id="head">
 
-                    <h1>GRABNEWZZ-TOP HEADLINES on <span style={{ color: "red" }}>{this.props.category}</span>   </h1>
+                    <h1>GRABNEWZZ-TOP <span style={{ color: "red" }}> {this.props.category}</span> HEADLINES   </h1>
                 </div>
                
 
@@ -93,7 +96,7 @@ export class News extends Component {
 
 
 
-                    <div className="container">
+                    <div className="container" style={{marginLeft:"100px",marginTop:"50px"}}>
 
                         <div className="row">
                             {this.state.articles.map((element) => {
